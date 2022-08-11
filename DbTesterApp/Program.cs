@@ -1,3 +1,5 @@
+using DbTesterApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,10 +18,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
+app.Urls.Add("https://0.0.0.0:1410");
+//app.Urls.Add("http://0.0.0.0:321");
 
+var service = new TestSeedingService();
+service.SeedSql();
+service.SeedNoSql();
 app.Run();

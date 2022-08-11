@@ -3,16 +3,16 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 namespace DbTesterApp.Models.NoSql 
 {
-    public class Book
+    public class BookNoSql :Book
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+        public ulong Id { get; set; }
 
         [BsonElement("Name")]
         public string BookName { get; set; } = null!;
 
-        public decimal Price { get; set; }
+        public string? Price { get; set; }
 
         public string Category { get; set; } = null!;
 
