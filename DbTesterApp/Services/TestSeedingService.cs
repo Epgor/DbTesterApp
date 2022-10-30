@@ -10,34 +10,36 @@ namespace DbTesterApp.Services
 
         }
 
-        public void SeedSql()
+        public List<BookSql> SeedSql(int quantity)
         {
             Randomizer.Seed = new Random(8675309);
-            ulong Id = 0;
+            ulong Id = 1;
             var books = new Faker<BookSql>()
-              .RuleFor(p => p.Id, (f, p) => p.Id = Id++)
+              .RuleFor(p => p.Id, (f, p) => p.Id = (Id++).ToString())
               .RuleFor(p => p.BookName, (f, p) => f.Random.Words(2))
               .RuleFor(p => p.Author, (f, p) => f.Person.FullName)
               .RuleFor(p => p.Category, (f, p) => f.Music.Genre())
               .RuleFor(p => p.Price, (f, p) => f.Commerce.Price(1, 1000, 2, "$"))
-              .Generate(10);
+              .Generate(quantity);
            
-            printSqlBooks(books);
+            //printSqlBooks(books);
+            return (books);
         }
 
-        public void SeedNoSql()
+        public List<BookNoSql> SeedNoSql(int quantity)
         {
             Randomizer.Seed = new Random(8675309);
-            ulong Id = 0;
+            ulong Id = 1;
             var books = new Faker<BookNoSql>()
-              .RuleFor(p => p.Id, (f, p) => p.Id = Id++)
+              .RuleFor(p => p.Id, (f, p) => p.Id = (Id++).ToString())
               .RuleFor(p => p.BookName, (f, p) => f.Random.Words(2))
               .RuleFor(p => p.Author, (f, p) => f.Person.FullName)
               .RuleFor(p => p.Category, (f, p) => f.Music.Genre())
               .RuleFor(p => p.Price, (f, p) => f.Commerce.Price(1, 1000, 2, "$"))
-              .Generate(10);
+              .Generate(quantity);
 
-            printSqlBooks(books);
+            //printSqlBooks(books);
+            return (books);
         }
 
 

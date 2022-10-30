@@ -1,8 +1,11 @@
-﻿namespace DbTesterApp.Services
+﻿using DbTesterApp.Models.Sql;
+using DbTesterApp.Models.NoSql;
+
+namespace DbTesterApp.Services
 {
     public interface ITestSeedingService
     {
-        void SeedNoSql();
-        void SeedSql();
+        List<BookNoSql> SeedNoSql(int quantity);
+        List<BookSql> SeedSql(int quantity);
     }
 }
