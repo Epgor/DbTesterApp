@@ -13,7 +13,7 @@ namespace DbTesterApp.Services
         public List<BookSql> SeedSql(int quantity)
         {
             Randomizer.Seed = new Random(8675309);
-            ulong Id = 1;
+            int Id = 1;
             var books = new Faker<BookSql>()
               .RuleFor(p => p.Id, (f, p) => p.Id = (Id++).ToString())
               .RuleFor(p => p.BookName, (f, p) => f.Random.Words(2))

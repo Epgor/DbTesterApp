@@ -1,9 +1,12 @@
+using DbTesterApp.Entities;
 using DbTesterApp.Models.Database;
 using DbTesterApp.Services;
+using MongoDB.Driver.Core.Configuration;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -11,14 +14,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<TestSeedingService>();
-
-var redisMuxer = ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false,password=password");
+//redis
+//var redisMuxer = ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false,password=password");
+var redisMuxer = ConnectionMultiplexer.Connect(builder.Configuration.GetSection("RedisDatabase:ConnectionString").Value);
 builder.Services.AddSingleton<IConnectionMultiplexer>(redisMuxer);
-
-builder.Services.Configure<MongoDatabaseModel>(
-    builder.Configuration.GetSection("MongoDatabase"));
-
+//mongo
+builder.Services.Configure<MongoDatabaseModel>(builder.Configuration.GetSection("MongoDatabase"));
 builder.Services.AddSingleton<BooksService>();
+//sql
+BookStoreDbContext.ConfigureConnection(builder.Configuration.GetSection("MSSQLDatabase:ConnectionString").Value);
+builder.Services.AddDbContext<BookStoreDbContext>();
+builder.Services.AddScoped<BookSqlService>();
 
 var app = builder.Build();
 
