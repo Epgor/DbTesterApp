@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class BookRedisController : ControllerBase
 {
 
