@@ -1,4 +1,4 @@
-﻿using DbTesterApp.Models.Sql;
+﻿using DbTesterApp.Models;
 using DbTesterApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +16,13 @@ public class BookSqlController : ControllerBase
         _bookSqlService = bookSqlService;
 
     [HttpGet]
-    public ActionResult<List<BookSql>> GetAll()
+    public ActionResult<List<Book>> GetAll()
     {
         var books = _bookSqlService.GetAll();
         return Ok(books);
     }
     [HttpGet("{name}")]
-    public ActionResult<BookSql> GetBookSql([FromRoute]string name)
+    public ActionResult<Book> GetBookSql([FromRoute]string name)
     {
         var book = _bookSqlService.GetTestBook(name);
         return Ok(book);

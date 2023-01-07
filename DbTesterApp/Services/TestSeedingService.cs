@@ -1,6 +1,6 @@
 ﻿using Bogus;
 using DbTesterApp.Models.NoSql;
-using DbTesterApp.Models.Sql;
+using DbTesterApp.Models;
 namespace DbTesterApp.Services
 {
     public class TestSeedingService : ITestSeedingService
@@ -10,11 +10,11 @@ namespace DbTesterApp.Services
 
         }
 
-        public List<BookSql> SeedSql(int quantity)
+        public List<Book> SeedSql(int quantity)
         {
             Randomizer.Seed = new Random(8675309);
             int Id = 1;
-            var books = new Faker<BookSql>()
+            var books = new Faker<Book>()
               .RuleFor(p => p.Id, (f, p) => p.Id = (Id++).ToString())
               .RuleFor(p => p.BookName, (f, p) => f.Random.Words(2))
               .RuleFor(p => p.Author, (f, p) => f.Person.FullName)
@@ -43,7 +43,7 @@ namespace DbTesterApp.Services
         }
 
 
-        private void printSqlBooks(List<BookSql> books)
+        private void printSqlBooks(List<Book> books)
         {
             foreach (var book in books)
             {

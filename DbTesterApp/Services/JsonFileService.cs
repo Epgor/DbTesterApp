@@ -1,5 +1,5 @@
 ﻿using DbTesterApp.Models;
-using DbTesterApp.Models.Sql;
+using DbTesterApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text.Json;
@@ -12,7 +12,7 @@ public class JsonFileService
     public JsonFileService() { }
 
     private readonly string booksPath = "C:\\Users\\user\\source\\repos\\Epgor\\DbTesterApp\\DbTesterApp\\Files\\storeBooks.json";
-    public async Task<int> SaveToFile(List<BookSql> books, string fileName)
+    public async Task<int> SaveToFile(List<Book> books, string fileName)
     {
         try
         {

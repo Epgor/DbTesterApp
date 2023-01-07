@@ -1,7 +1,5 @@
-﻿using DbTesterApp.Models.Sql;
+﻿using DbTesterApp.Models;
 using Microsoft.EntityFrameworkCore;
-using MongoDB.Driver.Core.Configuration;
-using StackExchange.Redis;
 
 namespace DbTesterApp.Entities;
 
@@ -9,7 +7,13 @@ public class BookStoreDbContext : DbContext
 {
     private static string _connectionString = "";
 
-    public DbSet<BookSql> Books { get; set; }
+    public DbSet<Book> Books { get; set; }
+    public DbSet<Library> Libraries { get; set; }
+    public DbSet<Organisation> Organizations { get; set; }
+    public DbSet<Worker> Workers { get; set; }
+    public DbSet<Vector> Vectors { get; set; }
+    public DbSet<Point> Points { get; set; }
+    public DbSet<Number> Numbers { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 

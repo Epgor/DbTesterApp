@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using DbTesterApp.Models.Sql;
+using DbTesterApp.Models;
 using System.Net.WebSockets;
 using System.Text;
 
@@ -42,9 +42,9 @@ public class DataPreparationService
         return _hashTab;
     }
 
-    private async Task<BookSql> GetBook(string id, int quantity = 1)
+    private async Task<Book> GetBook(string id, int quantity = 1)
     {
-        var book = new Faker<BookSql>()
+        var book = new Faker<Book>()
           .RuleFor(p => p.Id, (f, p) => p.Id = id)
           .RuleFor(p => p.BookName, (f, p) => f.Random.Words(2))
           .RuleFor(p => p.Author, (f, p) => f.Person.FullName)
@@ -54,10 +54,17 @@ public class DataPreparationService
 
         return book.First();
     }
-    public async Task<List<BookSql>> PrepareData(int quantity, int refreshRate)
+    /*
+    private async Task<Worker>(string id, int quantity = 1)
+    {
+        var book = new Faker<Worker>()
+            .
+    }
+    */
+    public async Task<List<Book>> PrepareData(int quantity, int refreshRate)
     {
         PopulateHashTab();
-        var books = new List<BookSql> { };
+        var books = new List<Book> { };
 
         for(int i = 0; i<quantity; i++)
         {
