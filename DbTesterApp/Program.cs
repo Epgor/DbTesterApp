@@ -20,7 +20,7 @@ var redisMuxer = ConnectionMultiplexer.Connect(builder.Configuration.GetSection(
 builder.Services.AddSingleton<IConnectionMultiplexer>(redisMuxer);
 //mongo
 builder.Services.Configure<MongoDatabaseModel>(builder.Configuration.GetSection("MongoDatabase"));
-builder.Services.AddSingleton<BooksService>();
+builder.Services.AddSingleton<BooksNoSqlService>();
 //sql
 BookStoreDbContext.ConfigureConnection(builder.Configuration.GetSection("MSSQLDatabase:ConnectionString").Value);
 builder.Services.AddDbContext<BookStoreDbContext>();

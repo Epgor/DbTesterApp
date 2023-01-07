@@ -1,6 +1,6 @@
 ﻿namespace DbTesterApp.Models
 {
-    public class Organisation
+    public class Organization
     {
         public string Id { get; set; }
         public string OrganisationName { get; set; }

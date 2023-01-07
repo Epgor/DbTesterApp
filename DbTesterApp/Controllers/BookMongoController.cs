@@ -9,9 +9,9 @@ namespace DbTesterApp.Controllers;
 [Route("api/[controller]")]
 public class BooksController : ControllerBase
 {
-    private readonly BooksService _booksService;
+    private readonly BooksNoSqlService _booksService;
 
-    public BooksController(BooksService booksService) =>
+    public BooksController(BooksNoSqlService booksService) =>
         _booksService = booksService;
 
     [HttpGet]

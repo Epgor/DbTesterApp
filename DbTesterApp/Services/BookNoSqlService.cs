@@ -5,11 +5,11 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace DbTesterApp.Services;
-public class BooksService
+public class BooksNoSqlService
 {
 private readonly IMongoCollection<BookNoSql> _booksCollection;
 
-public BooksService(
+public BooksNoSqlService(
     IOptions<MongoDatabaseModel> bookStoreDatabaseSettings)
 {
     var mongoClient = new MongoClient(

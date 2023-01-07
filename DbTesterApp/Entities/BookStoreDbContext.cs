@@ -9,7 +9,7 @@ public class BookStoreDbContext : DbContext
 
     public DbSet<Book> Books { get; set; }
     public DbSet<Library> Libraries { get; set; }
-    public DbSet<Organisation> Organizations { get; set; }
+    public DbSet<Organization> Organizations { get; set; }
     public DbSet<Worker> Workers { get; set; }
     public DbSet<Vector> Vectors { get; set; }
     public DbSet<Point> Points { get; set; }
