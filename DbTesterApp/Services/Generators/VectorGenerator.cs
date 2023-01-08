@@ -3,9 +3,12 @@ using DbTesterApp.Models;
 
 namespace DbTesterApp.Services
 {
-    public class VectorGenerator
+    public static class VectorGenerator
     {
-        public async Task<Vector> GetVector(string id, List<Point> points, int quantity = 1)
+        public static async Task<Vector> GetVector(
+            string id,
+            List<Point> points,
+            int quantity = 1)
         {
             var vector = new Faker<Vector>()
               .RuleFor(p => p.Id, (f, p) => p.Id = id)

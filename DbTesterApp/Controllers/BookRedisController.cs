@@ -1,8 +1,7 @@
-﻿namespace DbTesterApp.Controllers;
-
-using DbTesterApp.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
+
+namespace DbTesterApp.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

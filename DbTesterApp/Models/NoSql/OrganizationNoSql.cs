@@ -9,7 +9,7 @@ namespace DbTesterApp.Models.NoSql
         [BsonRepresentation(BsonType.ObjectId)]
         new public string Id { get; set; }
         [BsonElement("Name")]
-        new public string OrganisationName { get; set; }
+        new public string OrganizationName { get; set; }
         new public List<LibraryNoSql> Libraries { get; set; }
         new public List<WorkerNoSql> Workers { get; set; }
     }

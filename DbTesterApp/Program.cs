@@ -26,8 +26,8 @@ BookStoreDbContext.ConfigureConnection(builder.Configuration.GetSection("MSSQLDa
 builder.Services.AddDbContext<BookStoreDbContext>();
 builder.Services.AddScoped<BookSqlService>();
 
+builder.Services.AddSingleton<HashIdentifierService>();
 builder.Services.AddScoped<DataPreparationService>();
-var dataPreparationService = new DataPreparationService();
 //var _ = dataPreparationService.PrepareData(10000);
 builder.Services.AddScoped<JsonFileService>();
 var app = builder.Build();

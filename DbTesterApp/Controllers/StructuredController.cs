@@ -2,7 +2,6 @@
 
 using DbTesterApp.Services;
 using Microsoft.AspNetCore.Mvc;
-using StackExchange.Redis;
 
 [ApiController]
 [Route("[controller]")]

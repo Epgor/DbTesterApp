@@ -3,9 +3,13 @@ using DbTesterApp.Models;
 
 namespace DbTesterApp.Services
 {
-    public class LibraryGenerator
+    public static class LibraryGenerator
     {
-        public async Task<Library> GetLibrary(string id, List<Worker> workers, List<Book> books, int quantity = 1)
+        public static async Task<Library> GetLibrary(
+            string id,
+            List<Worker> workers,
+            List<Book> books,
+            int quantity = 1)
         {
             var library = new Faker<Library>()
               .RuleFor(p => p.Id, (f, p) => p.Id = id)

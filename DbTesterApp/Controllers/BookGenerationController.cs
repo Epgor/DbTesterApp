@@ -18,8 +18,8 @@ public class BookGenerationController : ControllerBase
     [HttpGet("{quantity}")]
     public async Task<ActionResult> GenerateData([FromRoute]int quantity, [FromQuery]int refreshRate = 10)
     {
-        var books = await dataService.PrepareData(quantity, refreshRate);
-        var writingResult = await fileService.SaveToFile(books, fileService.booksPath);
-        return Ok($"Generated {quantity} books; Writing to file status {writingResult}");
+        await dataService.PrepareData();
+        //var writingResult = await fileService.SaveToFile(books, fileService.booksPath);
+        return Ok($"Generated {quantity} books; Writing to file status ");
     }
 }

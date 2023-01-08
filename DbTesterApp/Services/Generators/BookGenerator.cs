@@ -3,9 +3,9 @@ using DbTesterApp.Models;
 
 namespace DbTesterApp.Services
 {
-    public class BookGenerator
+    public static class BookGenerator
     {
-        public async Task<Book> GetBook(string id, int quantity = 1)
+        public static async Task<Book> GetBook(string id, int quantity = 1)
         {
             var book = new Faker<Book>()
               .RuleFor(p => p.Id, (f, p) => p.Id = id)

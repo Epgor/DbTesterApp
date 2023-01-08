@@ -1,12 +1,15 @@
 ﻿using Bogus;
 using DbTesterApp.Models;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace DbTesterApp.Services
 {
-    public class OrganizationGenerator
+    public static class OrganizationGenerator
     {
-        public async Task<Organization> GetOrganization(string id, List<Library> libraries, List<Worker> workers, int quantity = 1)
+        public static async Task<Organization> GetOrganization(
+            string id,
+            List<Library> libraries,
+            List<Worker> workers,
+            int quantity = 1)
         {
             var organization = new Faker<Organization>()
               .RuleFor(p => p.Id, (f, p) => p.Id = id)
