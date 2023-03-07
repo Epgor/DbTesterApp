@@ -3,13 +3,13 @@ using MongoDB.Bson;
 
 namespace DbTesterApp.Models
 {
-    public class PointNoSql: Point
+    public class PointNoSql : BasePoint
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        new public string Id { get; set; }
+        public string Id { get; set; }
         [BsonElement("Name")]
-        new public string Name { get; set; }
-        new public List<NumberNoSql> Values { get; set; }
+        public string Name { get; set; }
+        public List<NumberNoSql> Values { get; set; }
     }
 }

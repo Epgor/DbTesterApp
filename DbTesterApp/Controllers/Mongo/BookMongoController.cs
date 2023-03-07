@@ -1,12 +1,12 @@
 ﻿using DbTesterApp.Models;
 using DbTesterApp.Models.NoSql;
-using DbTesterApp.Services;
+using DbTesterApp.Services.Mongo;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DbTesterApp.Controllers;
+namespace DbTesterApp.Controllers.Mongo;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/mongo/[controller]")]
 public class BooksController : ControllerBase
 {
     private readonly BooksNoSqlService _booksService;
@@ -67,6 +67,15 @@ public class BooksController : ControllerBase
         }
 
         await _booksService.RemoveAsync(id);
+
+        return NoContent();
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete()
+    {
+
+        await _booksService.RemoveAllAsync();
 
         return NoContent();
     }

@@ -2,14 +2,14 @@
 using MongoDB.Bson.Serialization.Attributes;
 namespace DbTesterApp.Models.NoSql 
 {
-    public class BookNoSql: Book
+    public class BookNoSql: BaseBook
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        new public string Id { get; set; }
+        public string Id { get; set; }
 
         [BsonElement("Name")]
-        new public string BookName { get; set; }
+        public string BookName { get; set; }
     }
 }
 

@@ -1,9 +1,9 @@
 ﻿namespace DbTesterApp.Models
 {
-    public class Number
+    public class Vector : BaseVector
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public int Value { get; set; }
+        public List<Point> Values { get; set; }
     }
 }

@@ -3,12 +3,12 @@ using MongoDB.Bson;
 
 namespace DbTesterApp.Models.NoSql
 {
-    public class WorkerNoSql: Worker
+    public class WorkerNoSql : BaseWorker
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        new public string Id { get; set; }
+        public string Id { get; set; }
         [BsonElement("Name")]
-        new public string WorkerName { get; set; }
+        public string WorkerName { get; set; }
     }
 }
