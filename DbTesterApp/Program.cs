@@ -1,6 +1,7 @@
 using DbTesterApp.Entities;
 using DbTesterApp.Models;
 using DbTesterApp.Models.Database;
+using DbTesterApp.Models.NoSql;
 using DbTesterApp.Services;
 using DbTesterApp.Services.Mongo;
 using MongoDB.Driver.Core.Configuration;
@@ -22,9 +23,13 @@ var redisMuxer = ConnectionMultiplexer.Connect(builder.Configuration.GetSection(
 builder.Services.AddSingleton<IConnectionMultiplexer>(redisMuxer);
 //mongo
 builder.Services.Configure<MongoDatabaseModel>(builder.Configuration.GetSection("MongoDatabase"));
-builder.Services.AddSingleton<BooksNoSqlService>();
-builder.Services.AddSingleton<WorkersNoSqlService>();
 builder.Services.AddScoped(typeof(GenericNoSqlService<NumberNoSql>));
+builder.Services.AddScoped(typeof(GenericNoSqlService<PointNoSql>));
+builder.Services.AddScoped(typeof(GenericNoSqlService<VectorNoSql>));
+builder.Services.AddScoped(typeof(GenericNoSqlService<BookNoSql>));
+builder.Services.AddScoped(typeof(GenericNoSqlService<WorkerNoSql>));
+builder.Services.AddScoped(typeof(GenericNoSqlService<LibraryNoSql>));
+builder.Services.AddScoped(typeof(GenericNoSqlService<OrganizationNoSql>));
 //sql
 BookStoreDbContext.ConfigureConnection(builder.Configuration.GetSection("MSSQLDatabase:ConnectionString").Value);
 builder.Services.AddDbContext<BookStoreDbContext>();

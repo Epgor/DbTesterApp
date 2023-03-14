@@ -1,4 +1,4 @@
-﻿using DbTesterApp.Models;
+﻿using DbTesterApp.Models.Sql;
 using Microsoft.EntityFrameworkCore;
 
 namespace DbTesterApp.Entities;
@@ -9,10 +9,10 @@ public class BookStoreDbContext : DbContext
 
     public DbSet<Book> Books { get; set; }
     public DbSet<Library> Libraries { get; set; }
-    public DbSet<BaseOrganization> Organizations { get; set; }
-    public DbSet<BaseWorker> Workers { get; set; }
-    public DbSet<BaseVector> Vectors { get; set; }
-    public DbSet<BasePoint> Points { get; set; }
+    public DbSet<Organization> Organizations { get; set; }
+    public DbSet<Worker> Workers { get; set; }
+    public DbSet<Vector> Vectors { get; set; }
+    public DbSet<Point> Points { get; set; }
     public DbSet<Number> Numbers { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

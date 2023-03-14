@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using DbTesterApp.Models;
+using DbTesterApp.Models.Sql;   
 
 namespace DbTesterApp.Services
 {

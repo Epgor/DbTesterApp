@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 namespace DbTesterApp.Models.NoSql 
 {
-    public class BookNoSql: BaseBook
+    public class BookNoSql : BaseBook
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

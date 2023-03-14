@@ -1,4 +1,4 @@
-﻿using DbTesterApp.Models;
+﻿using DbTesterApp.Models.Sql;
 using DbTesterApp.Services;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,5 +1,5 @@
 ﻿using DbTesterApp.Entities;
-using DbTesterApp.Models;
+using DbTesterApp.Models.Sql;
 namespace DbTesterApp.Services
 {
     public interface IBookSqlService

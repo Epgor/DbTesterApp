@@ -1,6 +1,4 @@
-﻿using DbTesterApp.Models;
-using DbTesterApp.Models.NoSql;
-using DbTesterApp.Services.Mongo;
+﻿using DbTesterApp.Services.Mongo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DbTesterApp.Controllers.Mongo;

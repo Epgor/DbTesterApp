@@ -1,4 +1,4 @@
-﻿namespace DbTesterApp.Models
+﻿namespace DbTesterApp.Models.Sql
 {
     public class Worker : BaseWorker
     {

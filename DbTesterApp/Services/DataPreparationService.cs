@@ -1,4 +1,4 @@
-﻿using DbTesterApp.Models;
+﻿using DbTesterApp.Models.Sql;
 namespace DbTesterApp.Services;
 
 public class DataPreparationService

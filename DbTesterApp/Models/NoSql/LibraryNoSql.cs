@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace DbTesterApp.Models.NoSql
 {
-    public class LibraryNoSql: Library
+    public class LibraryNoSql : BaseLibrary
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

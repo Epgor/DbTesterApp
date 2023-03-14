@@ -1,7 +1,4 @@
 ﻿using DbTesterApp.Models.NoSql;
-using System;
-using static System.Reflection.Metadata.BlobBuilder;
-
 namespace DbTesterApp.Models.Database;
 
 public class MongoDatabaseModel
@@ -16,26 +13,25 @@ public class MongoDatabaseModel
 
         Dictionary<Type, string> typeToStringMap = new Dictionary<Type, string>
         {
-            { typeof(NumberNoSql), "Number" }
+            { typeof(NumberNoSql), "Number" },
+            { typeof(PointNoSql), "Point" },
+            { typeof(VectorNoSql), "Vector" },
+            { typeof(WorkerNoSql), "Worker" },
+            { typeof(BookNoSql), "Book" },
+            { typeof(LibraryNoSql), "Library" },
+            { typeof(OrganizationNoSql), "Organization" }
         };
 
         return typeToStringMap[type];
     }
-    public string BooksCollectionName { get; set; } = "Books";
-    public string WorkersCollectionName { get; set; } = "Workers";
-    public string NumbersCollectionName { get; set; } = "Numbers";
-    public string PointsCollectionName { get; set; } = "Points";
-
-
-    /*
-        "LibrariesCollectionName": "Libraries",
-        "OrganizationsCollectionName": "Organizations",
-        "VectorsCollectionName": "Vectors",
-        "PointsCollectionName": "Points",
-        "NumbersCollectionName": "Numbers
-    */
 }
 public enum NoSqlTypes
 {
-    NumberNoSql
+    NumberNoSql,
+    PointNoSql,
+    VectorNoSql,
+    WorkerNoSql,
+    BookNoSql,
+    LibraryNoSql,
+    OrganizationNoSql
 }

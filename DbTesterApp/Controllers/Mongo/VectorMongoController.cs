@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace DbTesterApp.Controllers.Mongo;
 
 [Route("api/mongo/[controller]")]
-public class MongoBookController : MongoGenericController<BookNoSql>
+public class MongoVectorController : MongoGenericController<VectorNoSql>
 {
-    public MongoBookController(GenericNoSqlService<BookNoSql> genericService) 
+    public MongoVectorController(GenericNoSqlService<VectorNoSql> genericService)
         : base(genericService) {}
 }

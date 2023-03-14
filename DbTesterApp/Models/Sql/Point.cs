@@ -1,6 +1,6 @@
-﻿namespace DbTesterApp.Models
+﻿namespace DbTesterApp.Models.Sql
 {
-    public class Point
+    public class Point : BasePoint
     {
         public string Id { get; set; }
         public string Name { get; set; }

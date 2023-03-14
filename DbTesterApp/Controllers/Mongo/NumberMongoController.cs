@@ -1,13 +1,12 @@
-﻿using DbTesterApp.Models;
+﻿using DbTesterApp.Models.NoSql;
 using DbTesterApp.Services.Mongo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DbTesterApp.Controllers.Mongo;
 
 [Route("api/mongo/[controller]")]
-public class NumbersController : MongoGenericController<NumberNoSql>
+public class MongoNumberController : MongoGenericController<NumberNoSql>
 {
-    public NumbersController(GenericNoSqlService<NumberNoSql> genericService) : base(genericService)
-    {
-    }
+    public MongoNumberController(GenericNoSqlService<NumberNoSql> genericService)
+        : base(genericService) {}
 }

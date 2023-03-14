@@ -1,4 +1,4 @@
-﻿using DbTesterApp.Models;
+﻿using DbTesterApp.Models.Sql;
 using DbTesterApp.Models.NoSql;
 
 namespace DbTesterApp.Services

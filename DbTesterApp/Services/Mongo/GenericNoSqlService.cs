@@ -1,6 +1,4 @@
-﻿using DbTesterApp.Models;
-using DbTesterApp.Models.Database;
-using DbTesterApp.Models.NoSql;
+﻿using DbTesterApp.Models.Database;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
