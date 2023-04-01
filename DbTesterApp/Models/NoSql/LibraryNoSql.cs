@@ -7,11 +7,11 @@ namespace DbTesterApp.Models.NoSql
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        new public string Id { get; set; }
+        public string Id { get; set; }
 
         [BsonElement("Name")]
-        new public string LibraryName { get; set; }
-        new public List<WorkerNoSql> Workers { get; set; }
-        new public List<BookNoSql> Books { get; set; }
+        public string LibraryName { get; set; }
+        public List<WorkerNoSql> Workers { get; set; }
+        public List<BookNoSql> Books { get; set; }
     }
 }

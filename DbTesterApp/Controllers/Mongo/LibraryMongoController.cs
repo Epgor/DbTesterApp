@@ -7,6 +7,6 @@ namespace DbTesterApp.Controllers.Mongo;
 [Route("api/mongo/[controller]")]
 public class MongoLibraryController : MongoGenericController<LibraryNoSql>
 {
-    public MongoLibraryController(GenericNoSqlService<LibraryNoSql> genericService)
+    public MongoLibraryController(GenericMongoService<LibraryNoSql> genericService)
         : base(genericService) {}
 }

@@ -6,13 +6,20 @@ namespace DbTesterApp.Controllers.Mongo;
 [ApiController]
 public class MongoGenericController<T> : ControllerBase
 {
-    private readonly GenericNoSqlService<T> _genericService;
+    private readonly GenericMongoService<T> _genericService;
 
-    public MongoGenericController(GenericNoSqlService<T> genericService)
+    public MongoGenericController(GenericMongoService<T> genericService)
     {
         _genericService = genericService;
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Post(T newNumber)
+    {
+        await _genericService.CreateAsync(newNumber);
+
+        return CreatedAtAction(nameof(Get), newNumber);
+    }
 
     [HttpGet]
     public async Task<List<T>> Get() =>
@@ -29,14 +36,6 @@ public class MongoGenericController<T> : ControllerBase
         }
 
         return book;
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Post(T newNumber)
-    {
-        await _genericService.CreateAsync(newNumber);
-
-        return CreatedAtAction(nameof(Get), newNumber);
     }
 
     [HttpPut("{id:length(24)}")]
@@ -64,7 +63,7 @@ public class MongoGenericController<T> : ControllerBase
             return NotFound();
         }
 
-        await _genericService.RemoveAsync(id);
+        await _genericService.DeleteAsync(id);
 
         return NoContent();
     }
@@ -73,7 +72,7 @@ public class MongoGenericController<T> : ControllerBase
     public async Task<IActionResult> Delete()
     {
 
-        await _genericService.RemoveAllAsync();
+        await _genericService.DeleteAllAsync();
 
         return NoContent();
     }

@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Temp chache for storing objects - *.jsons in Files fir
+
+*-cache.json

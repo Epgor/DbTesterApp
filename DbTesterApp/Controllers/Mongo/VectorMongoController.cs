@@ -7,6 +7,6 @@ namespace DbTesterApp.Controllers.Mongo;
 [Route("api/mongo/[controller]")]
 public class MongoVectorController : MongoGenericController<VectorNoSql>
 {
-    public MongoVectorController(GenericNoSqlService<VectorNoSql> genericService)
+    public MongoVectorController(GenericMongoService<VectorNoSql> genericService)
         : base(genericService) {}
 }

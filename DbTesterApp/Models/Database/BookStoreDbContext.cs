@@ -1,7 +1,7 @@
 ﻿using DbTesterApp.Models.Sql;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbTesterApp.Entities;
+namespace DbTesterApp.Models.Database;
 
 public class BookStoreDbContext : DbContext
 {

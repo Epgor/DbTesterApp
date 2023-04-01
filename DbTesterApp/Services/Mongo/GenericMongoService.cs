@@ -1,14 +1,15 @@
-﻿using DbTesterApp.Models.Database;
+﻿using DbTesterApp.Models;
+using DbTesterApp.Models.Database;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DbTesterApp.Services.Mongo;
-public class GenericNoSqlService<T>
+public class GenericMongoService<T>
 {
     private readonly IMongoCollection<T> _genericsCollection;
 
-    public GenericNoSqlService(
+    public GenericMongoService(
         IOptions<MongoDatabaseModel> workerStoreDatabaseSettings)
     {
         var mongoClient = new MongoClient(
@@ -17,7 +18,7 @@ public class GenericNoSqlService<T>
         var mongoDatabase = mongoClient.GetDatabase(
             workerStoreDatabaseSettings.Value.DatabaseName);
 
-        var collectionName = workerStoreDatabaseSettings.Value.CollectionName<T>();
+        var collectionName = CollectionsDictionary.CollectionName<T>();
 
         _genericsCollection = mongoDatabase.GetCollection<T>(collectionName);
     }
@@ -43,13 +44,13 @@ public class GenericNoSqlService<T>
         return result.ModifiedCount > 0;
     }
 
-    public async Task<bool> RemoveAsync(string id) 
+    public async Task<bool> DeleteAsync(string id) 
     {
         var filter = Builders<T>.Filter.Eq("_id", new ObjectId(id));
         var result = await _genericsCollection.DeleteOneAsync(filter);
         return result.DeletedCount > 0;
     }
 
-    public async Task RemoveAllAsync() =>
+    public async Task DeleteAllAsync() =>
         await _genericsCollection.DeleteManyAsync("{}");
 }

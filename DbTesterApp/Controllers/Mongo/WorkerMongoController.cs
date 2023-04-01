@@ -7,6 +7,6 @@ namespace DbTesterApp.Controllers.Mongo;
 [Route("api/mongo/[controller]")]
 public class MongoWorkerController : MongoGenericController<WorkerNoSql>
 {
-    public MongoWorkerController(GenericNoSqlService<WorkerNoSql> genericService)
+    public MongoWorkerController(GenericMongoService<WorkerNoSql> genericService)
         : base(genericService) {}
 }

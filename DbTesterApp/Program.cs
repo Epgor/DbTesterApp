@@ -1,11 +1,14 @@
-using DbTesterApp.Entities;
 using DbTesterApp.Models;
 using DbTesterApp.Models.Database;
 using DbTesterApp.Models.NoSql;
 using DbTesterApp.Services;
 using DbTesterApp.Services.Mongo;
-using MongoDB.Driver.Core.Configuration;
+using DbTesterApp.Services.MSSQL;
+using DbTesterApp.Services.Redis;
+using Microsoft.AspNetCore.Hosting;
 using StackExchange.Redis;
+using Microsoft.AspNetCore.Builder;
+using DbTesterApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,24 +19,32 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped<TestSeedingService>();
-//redis
-//var redisMuxer = ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false,password=password");
-var redisMuxer = ConnectionMultiplexer.Connect(builder.Configuration.GetSection("RedisDatabase:ConnectionString").Value);
-builder.Services.AddSingleton<IConnectionMultiplexer>(redisMuxer);
+
 //mongo
 builder.Services.Configure<MongoDatabaseModel>(builder.Configuration.GetSection("MongoDatabase"));
-builder.Services.AddScoped(typeof(GenericNoSqlService<NumberNoSql>));
-builder.Services.AddScoped(typeof(GenericNoSqlService<PointNoSql>));
-builder.Services.AddScoped(typeof(GenericNoSqlService<VectorNoSql>));
-builder.Services.AddScoped(typeof(GenericNoSqlService<BookNoSql>));
-builder.Services.AddScoped(typeof(GenericNoSqlService<WorkerNoSql>));
-builder.Services.AddScoped(typeof(GenericNoSqlService<LibraryNoSql>));
-builder.Services.AddScoped(typeof(GenericNoSqlService<OrganizationNoSql>));
-//sql
+var mongoServiceType = typeof(GenericMongoService<>);
+foreach (var entry in CollectionsDictionary.NoSqlTypes)
+{
+    builder.Services.AddScoped(mongoServiceType.MakeGenericType(entry.Key));
+}
+//redis
+var redisMuxer = ConnectionMultiplexer.Connect(builder.Configuration.GetSection("RedisDatabase:ConnectionString").Value);
+builder.Services.AddSingleton<IConnectionMultiplexer>(redisMuxer);
+var redisServiceType = typeof(GenericRedisService<>);
+foreach (var entry in CollectionsDictionary.NoSqlTypes)
+{
+    builder.Services.AddScoped(redisServiceType.MakeGenericType(entry.Key));
+}
+//mssql
 BookStoreDbContext.ConfigureConnection(builder.Configuration.GetSection("MSSQLDatabase:ConnectionString").Value);
 builder.Services.AddDbContext<BookStoreDbContext>();
-builder.Services.AddScoped<BookSqlService>();
+var mssqlServiceType = typeof(GenericSqlService<>);
+foreach (var entry in CollectionsDictionary.SqlTypes)
+{
+    builder.Services.AddScoped(mssqlServiceType.MakeGenericType(entry.Key));
+}
 
 builder.Services.AddSingleton<HashIdentifierService>();
 builder.Services.AddScoped<DataPreparationService>();
