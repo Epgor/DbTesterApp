@@ -365,3 +365,9 @@ FodyWeavers.xsd
 # Temp chache for storing objects - *.jsons in Files fir
 
 *-cache.json
+/DbTesterApp/Files/storePoints.json
+/DbTesterApp/Files/storeWorkers.json
+/DbTesterApp/Files/storeVectors.json
+/DbTesterApp/Files/storeNumbers.json
+/DbTesterApp/Files/storeLibraries.json
+/DbTesterApp/Files/storeBooks.json

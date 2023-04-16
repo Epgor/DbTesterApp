@@ -21,7 +21,7 @@ public class GenerationController : ControllerBase
     [HttpGet("regular")]
     public async Task<ActionResult<DataHolderSql>> GenerateData()
     {
-        var some = 100;
+        var some = 3;
         dataService.Configure(
             some,
             some,
@@ -43,7 +43,7 @@ public class GenerationController : ControllerBase
     [HttpGet("fast")]
     public async Task<ActionResult<DataHolderSql>> GenerateDataFast()
     {
-        var some = 100;
+        var some = 3;
         dataService.Configure(
             some,
             some,
@@ -63,21 +63,13 @@ public class GenerationController : ControllerBase
     }
 
     [HttpGet("id")]
-    public async Task<List<string>> GenerateNumber(int quantity)
+    public async Task<string> GenerateNextId()
     {
-        var values = new List<string>();
-        for(int i = 0; i < quantity; i++)
-        {
-            var number = hashIdentifierService.GetHashId();
-            values.Add(number);
-            if (i % 100 == 0)
-            {
-                var division = (double)i / quantity;
-                var value = Math.Round((division * 100), 3);
-                Console.WriteLine($"{value}%");
-            }
-                
-        }
-        return values;
+        return await hashIdentifierService.GetHashId();
+    }
+    [HttpGet("fastId")]
+    public async Task<string> GenerateFastNextId()
+    {
+        return await hashIdentifierService.GetFastHashId();
     }
 }

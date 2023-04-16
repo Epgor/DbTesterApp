@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DbTesterApp.Services.Redis;
+using DbTesterApp.Services;
 
 namespace DbTesterApp.Controllers.Redis;
 
@@ -7,27 +8,71 @@ namespace DbTesterApp.Controllers.Redis;
 public class RedisGenericController<T> : ControllerBase
 {
     private readonly GenericRedisService<T> _genericService;
+    private readonly HashIdentifierService _hashIdentifierService;
 
-    public RedisGenericController(GenericRedisService<T> genericService)
+    public RedisGenericController(GenericRedisService<T> genericService, HashIdentifierService hashIdentifierService)
     {
         _genericService = genericService;
+        _hashIdentifierService = hashIdentifierService;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Post(T newObject)
+    [HttpPost("slow")]
+    public async Task<IActionResult> PostSlow([FromBody]T Object)
     {
+        var newObject = await _hashIdentifierService.SetId(Object, true);
         var result = await _genericService.AddAsync(newObject);//will return error if exist
-        if (result) return CreatedAtAction(nameof(Post), newObject);
+        if (result) return Created(nameof(Post), newObject);
         return BadRequest("Uops! Something went wrong! Object creating failed!");
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] T Object)
+    {
+        var id = await _hashIdentifierService.GetFastHashId();
+        var result = await _genericService.AddAsync(Object, id);//will return error if exist
+        if (result) return Created(nameof(Post), id);
+        return BadRequest("Uops! Something went wrong! Object creating failed!");
+    }
+
+    [HttpPost("many")]
+    public async Task<ActionResult> Post([FromBody] IEnumerable<T> entities)
+    {
+        foreach (var entity in entities)
+        {
+            var id = await _hashIdentifierService.GetFastHashId();
+            await _genericService.AddAsync(entity, id);
+        }
+
+        return Created(nameof(Get), entities);
+    }
+    [HttpPost("many/fast")]
+    public async Task<ActionResult> PostFast([FromBody] IEnumerable<T> entities)
+    {
+
+        var id = await _hashIdentifierService.GetFastHashId();
+        await _genericService.AddFastAsync(entities, id);
+
+        return Created(nameof(Get), entities);
+    }
+
     [HttpGet]
-    public async Task<List<T>> GetAll() =>
-      await _genericService.GetAllAsync();
+    public async Task<List<T>> GetAll() 
+    {
+        return await _genericService.GetAllAsync();
+    }
+      
+    [HttpGet("total")]
+    public async Task<int> GetTotal()
+    {
+        var list = await _genericService.GetAllAsync();
+        return list.Count;
+    }
 
     [HttpGet("fast")]
-    public async Task<List<string>> GetAllFast() =>
-    await _genericService.GetAllFastAsync();
+    public async Task<List<string>> GetAllFast()
+    {
+        return await _genericService.GetAllFastAsync();
+    }
 
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<T>> Get(string id)

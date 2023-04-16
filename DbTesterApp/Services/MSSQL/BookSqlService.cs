@@ -16,6 +16,12 @@ namespace DbTesterApp.Services.MSSQL
             dbContext.Set<T>().Add(entity);
             await dbContext.SaveChangesAsync();
         }
+        public async Task AddMultipleAsync(IEnumerable<T> entities)
+        {
+            dbContext.Set<T>().AddRange(entities);
+            await dbContext.SaveChangesAsync();
+        }
+
         public async Task<List<T>> GetAllAsync() 
         {
             return await dbContext.Set<T>().ToListAsync();

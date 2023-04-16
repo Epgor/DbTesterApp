@@ -50,6 +50,17 @@ builder.Services.AddSingleton<HashIdentifierService>();
 builder.Services.AddScoped<DataPreparationService>();
 //var _ = dataPreparationService.PrepareData(10000);
 builder.Services.AddScoped<JsonFileService>();
+
+var OpenPolicy = "_openPolicy";
+
+builder.Services.AddCors(o => o.AddPolicy(name: OpenPolicy, builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+}));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,10 +70,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 //app.UseAuthorization();
 
+app.UseRouting();
+app.UseCors(OpenPolicy);
 app.MapControllers();
 //app.Urls.Add("https://0.0.0.0:1410");
 //app.Urls.Add("http://0.0.0.0:321");

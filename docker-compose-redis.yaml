@@ -2,6 +2,7 @@
 version: '3.8'
 services:
   cache:
+    container_name: redisdb
     image: redis:7.0-alpine
     ports:
       - '6379:6379'

@@ -1,5 +1,7 @@
-﻿using DbTesterApp.Services.Mongo;
+﻿using DbTesterApp.Services;
+using DbTesterApp.Services.Mongo;
 using Microsoft.AspNetCore.Mvc;
+using SharpCompress.Common;
 
 namespace DbTesterApp.Controllers.Mongo;
 
@@ -7,23 +9,52 @@ namespace DbTesterApp.Controllers.Mongo;
 public class MongoGenericController<T> : ControllerBase
 {
     private readonly GenericMongoService<T> _genericService;
+    private readonly HashIdentifierService _hashIdentifierService;
 
-    public MongoGenericController(GenericMongoService<T> genericService)
+    public MongoGenericController(GenericMongoService<T> genericService, HashIdentifierService hashIdentifierService)
     {
         _genericService = genericService;
+        _hashIdentifierService = hashIdentifierService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(T newNumber)
+    public async Task<IActionResult> Post([FromBody] T entity)
     {
-        await _genericService.CreateAsync(newNumber);
+        var newEntity = await _hashIdentifierService.SetId(entity, true);
+        await _genericService.CreateAsync(newEntity);
 
-        return CreatedAtAction(nameof(Get), newNumber);
+        return Created(nameof(Get), newEntity);
+    }
+
+    [HttpPost("many")]
+    public async Task<ActionResult> Post([FromBody] IEnumerable<T> entities)
+    {
+        var newEntities = new List<T>();
+
+        foreach (var entity in entities)
+        {
+            var newEntity = await _hashIdentifierService.SetId(entity, true);
+            newEntities.Add(newEntity);
+        }
+
+        await _genericService.CreateManyAsync(newEntities);
+
+        return Created(nameof(Get), newEntities);
+    }
+
+    [HttpGet("total")]
+    public async Task<ActionResult> total() 
+    {
+        var list = await _genericService.GetAsync();
+        var total = list.Count;
+        return Ok(total);
     }
 
     [HttpGet]
-    public async Task<List<T>> Get() =>
-        await _genericService.GetAsync();
+    public async Task<List<T>> GetAll()
+    {
+        return await _genericService.GetAsync();
+    }  
 
     [HttpGet("{id:length(24)}")]
     public async Task<ActionResult<T>> Get(string id)

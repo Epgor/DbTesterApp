@@ -16,7 +16,7 @@ public class UnStructuredController : ControllerBase
         _seeder = seedingService;
     }
     [HttpGet]
-    public ActionResult TestGet([FromQuery]int quantity)
+    public ActionResult TestGet([FromQuery]int quantity = 1)
     {
         var result = _seeder.SeedNoSql(quantity);
         return Ok(result);

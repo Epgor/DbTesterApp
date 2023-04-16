@@ -94,7 +94,7 @@ public class DataPreparationService
 
         var organizations = await GenerateOrganization(organizationsQuantity);
         //var organisationsNoSql = mapper.Map<List<OrganizationNoSql>>(organisations);
-        await fileService.SaveToFile(organizations, fileService.organizationsPath);
+        //await fileService.SaveToFile(organizations, fileService.organizationsPath);
 
         var dataSql = new DataHolderSql()
         {
@@ -146,7 +146,7 @@ public class DataPreparationService
 
         var organizations = await GenerateOrganizationFast(organizationsQuantity);
         //var organisationsNoSql = mapper.Map<List<OrganizationNoSql>>(organisations);
-        await fileService.SaveToFile(organizations, fileService.organizationsPath);
+        //await fileService.SaveToFile(organizations, fileService.organizationsPath);
 
         var dataSql = new DataHolderSql()
         {
@@ -174,7 +174,7 @@ public class DataPreparationService
         var books = new List<Book>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var book = await BookGenerator.GetBook(id);
             books.Add(book);
             RefreshProgress(i, quantity, refreshRate);
@@ -188,7 +188,7 @@ public class DataPreparationService
         var numbers = new List<Number>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var number = await NumberGenerator.GetNumber(id);
             numbers.Add(number);
             RefreshProgress(i, quantity, refreshRate);
@@ -202,7 +202,7 @@ public class DataPreparationService
         var workers = new List<Worker>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var worker = await WorkerGenerator.GetWorker(id);
             workers.Add(worker);
             RefreshProgress(i, quantity, refreshRate);
@@ -216,7 +216,7 @@ public class DataPreparationService
         var points = new List<Point>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var point = await PointGenerator.GetPoint(id, GenerateNumber(numbersPerPointQuantity).Result);
             points.Add(point);
             RefreshProgress(i, quantity, refreshRate);
@@ -228,7 +228,7 @@ public class DataPreparationService
         var points = new List<Point>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var point = await PointGenerator.GetPoint(id, numberFast);
             points.Add(point);
             RefreshProgress(i, quantity, refreshRate);
@@ -240,7 +240,7 @@ public class DataPreparationService
         var vectors = new List<Vector>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var vector = await VectorGenerator.GetVector(id, GeneratePoint(pointsPerVectorQuantity).Result);
             vectors.Add(vector);
             RefreshProgress(i, quantity, refreshRate);
@@ -252,7 +252,7 @@ public class DataPreparationService
         var vectors = new List<Vector>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var vector = await VectorGenerator.GetVector(id, pointFast);
             vectors.Add(vector);
             RefreshProgress(i, quantity, refreshRate);
@@ -264,7 +264,7 @@ public class DataPreparationService
         var libraries = new List<Library>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var library = 
                 await LibraryGenerator.GetLibrary(
                     id,
@@ -280,7 +280,7 @@ public class DataPreparationService
         var libraries = new List<Library>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var library =
                 await LibraryGenerator.GetLibrary(
                     id,
@@ -296,7 +296,7 @@ public class DataPreparationService
         var organizations = new List<Organization>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var library =
                 await OrganizationGenerator.GetOrganization(
                     id,
@@ -313,7 +313,7 @@ public class DataPreparationService
         var organizations = new List<Organization>();
         for (int i = 0; i < quantity; i++)
         {
-            var id = hashIdentifierService.GetHashId();
+            var id = await hashIdentifierService.GetHashId();
             var library =
                 await OrganizationGenerator.GetOrganization(
                     id,

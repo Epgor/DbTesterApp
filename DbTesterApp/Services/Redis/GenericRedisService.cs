@@ -31,16 +31,24 @@ public class GenericRedisService<T>
     public async Task<bool> AddAsync(T value)
     {
         var key = typeof(T).GetProperty("Id");
-        //if (key == null /*|| key.PropertyType != typeof(string)*/)
-          //  return false;
 
         var idValue = key.GetValue(value) as string;
-        //if (idValue?.Length != 24)
-            //return false;
 
         var db = GetDatabase();
         var json = JsonConvert.SerializeObject(value);
         return await db.StringSetAsync($"{_pattern}{idValue}", json);
+    }
+    public async Task<bool> AddAsync(T value, string id)
+    {
+        var db = GetDatabase();
+        var json = JsonConvert.SerializeObject(value);
+        return await db.StringSetAsync($"{_pattern}{id}", json);
+    }
+    public async Task<bool> AddFastAsync(IEnumerable<T> entities, string id)
+    {
+        var db = GetDatabase();
+        var json = JsonConvert.SerializeObject(entities);
+        return await db.StringSetAsync($"{_pattern}{id}", json);
     }
     public async Task<List<T>> GetAllAsync()
     {
@@ -116,5 +124,4 @@ public class GenericRedisService<T>
         var pong = await db.PingAsync();
         return $"Ping! - Pong at:{pong}";
     }
-
 }

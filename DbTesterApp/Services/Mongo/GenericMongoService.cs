@@ -34,8 +34,14 @@ public class GenericMongoService<T>
         return await _genericsCollection.Find(filter).FirstOrDefaultAsync();
     }
 
-    public async Task CreateAsync(T newGeneric) =>
-        await _genericsCollection.InsertOneAsync(newGeneric);
+    public async Task CreateAsync(T entity)
+    {
+        await _genericsCollection.InsertOneAsync(entity);
+    }
+    public async Task CreateManyAsync(IEnumerable<T> entities)
+    {
+        await _genericsCollection.InsertManyAsync(entities);
+    }
 
     public async Task<bool> UpdateAsync(string id, T updatedGeneric)
     {

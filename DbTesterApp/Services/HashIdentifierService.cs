@@ -1,43 +1,121 @@
-﻿namespace DbTesterApp.Services
+﻿using Microsoft.IdentityModel.Tokens;
+
+namespace DbTesterApp.Services
 {
     public class HashIdentifierService
     {
-        private static char[] hashTab;
-        
+        private static int[] intTab;
+        private static Dictionary<int, string> intMap;
+        private ulong fastId = 10000000000000000000;
+        static object idLock = new object();
+        static object idFastLock = new object();
         public HashIdentifierService()
         {
-            hashTab = PopulateHashTab();
+            intTab = PopulateIntTab();
+            intMap = PopulateIntMap();
         }
-        private static void CheckSize(char c, int localId)
+        public async Task<string> GetFastHashId()
         {
-            if (c == 'F' & localId == 0)
-                throw new Exception("Max size exceeded");
-        }
-        public string GetHashId()
-        {
-            var localId = hashTab.Length - 1;
-            while (hashTab[localId] == 'F')
+            lock (idFastLock)
             {
-                CheckSize(hashTab[localId], localId);
-
-                hashTab[localId] = '0';
-                localId--;
+                fastId++;
+                return $"A000{fastId}";
             }
-            var tempChar = (char)(hashTab[localId] + 1);
-            if (tempChar == ':') tempChar= 'A';
-            hashTab[localId] = tempChar;
+        }
+        public async Task<string> GetHashId()
+        {
+            string hashId;
+            int[] _intTab;
+            lock(idLock)
+            {
+                PushNextId();
+                _intTab = intTab;
+            }
+            hashId = await GetString(_intTab);
+            return hashId;
+        }
+        private void PushNextId()
+        {
+            int currentPosition = intTab.Length - 1;
 
-            return new string(hashTab);
+            while (currentPosition > 0)
+            {
+                if (intTab[currentPosition] >= 15)
+                {
+                    intTab[currentPosition] = 0;
+                    currentPosition--;
+                }
+                else { break; }
+            }
+
+            intTab[currentPosition]++;
+        }
+           
+        private async Task<string> GetString(int[] tab)
+        {
+            string resultString = "";
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < intTab.Length; i++)
+                {
+                    resultString += intMap[intTab[i]];
+                };
+            });
+
+            return resultString;
         }
 
-        private static char[] PopulateHashTab()
+        private int[] PopulateIntTab()
         {
-            var _hashTab = new char[24];
-            for (int i = 0; i < 24; i++)
+            return new int[]
             {
-                _hashTab[i] = 'A';
-            }
-            return _hashTab;
+                1,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0
+            };
+        }
+
+        private Dictionary<int, string> PopulateIntMap()
+        {
+            return new Dictionary<int, string>()
+            {
+                {0, "0"},
+                {1, "1"},
+                {2, "2"},
+                {3, "3"},
+                {4, "4"},
+                {5, "5"},
+                {6, "6"},
+                {7, "7"},
+                {8, "8"},
+                {9, "9"},
+                {10, "A"},
+                {11, "B"},
+                {12, "C"},
+                {13, "D"},
+                {14, "E"},
+                {15, "F"}
+            };
+        }
+
+        public async Task<T> SetId<T>(T oldObject, bool isFast=false)
+        {
+            var newObject = oldObject;
+            var id = "";
+            if (isFast)
+                id = await GetFastHashId();
+            else
+                id = await GetHashId();
+            Type type = typeof(T);
+
+            var idProperty = type.GetProperty("Id");
+
+            if (idProperty == null)
+                return oldObject;
+
+            idProperty.SetValue(newObject, id);
+
+            return newObject;
         }
     }
 
