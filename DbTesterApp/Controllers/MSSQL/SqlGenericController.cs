@@ -7,12 +7,12 @@ using SharpCompress.Common;
 namespace DbTesterApp.Controllers.MSSQL;
 
 [ApiController]
-public class SqlGenericController<T> : ControllerBase where T : class
+public class MssqlGenericController<T> : ControllerBase where T : class
 {
     private readonly GenericSqlService<T> _genericService;
     private readonly HashIdentifierService _hashIdentifierService;
 
-    public SqlGenericController(GenericSqlService<T> genericService, HashIdentifierService hashIdentifierService)
+    public MssqlGenericController(GenericSqlService<T> genericService, HashIdentifierService hashIdentifierService)
     {
         _genericService = genericService;
         _hashIdentifierService = hashIdentifierService;
@@ -24,6 +24,13 @@ public class SqlGenericController<T> : ControllerBase where T : class
         var newEntity = await _hashIdentifierService.SetId(entity, true);
         await _genericService.AddAsync(newEntity);
         return Created(nameof(Get), newEntity);
+    }
+
+    [HttpPost("full")]
+    public async Task<ActionResult> PostFull([FromBody] T entity)
+    {
+        await _genericService.AddAsync(entity);
+        return Created(nameof(Get), entity);
     }
 
     [HttpPost("many")]
@@ -70,7 +77,7 @@ public class SqlGenericController<T> : ControllerBase where T : class
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, T updatedEntity)
+    public async Task<IActionResult> Update([FromRoute] string id, [FromBody] T updatedEntity)
     {
         var result = await _genericService.UpdateAsync(id, updatedEntity);
         if (result)
@@ -93,5 +100,18 @@ public class SqlGenericController<T> : ControllerBase where T : class
         await _genericService.DeleteAllAsync();
 
         return NoContent();
+    }
+    [HttpGet("ids")]
+    public async Task<List<string>> GetAllIds()
+    {
+        List<string> ids = await _genericService.GetAllIds();
+        return ids;
+    }
+
+    [HttpGet("testdelete")]
+    public async Task<IActionResult> TestDelete()
+    {
+        await _genericService.DeleteSomeId();
+        return Ok();
     }
 }

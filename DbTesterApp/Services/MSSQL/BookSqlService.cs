@@ -1,6 +1,7 @@
 ﻿using DbTesterApp.Models.Database;
 using DbTesterApp.Models.Sql;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace DbTesterApp.Services.MSSQL
 {
@@ -62,6 +63,34 @@ namespace DbTesterApp.Services.MSSQL
                 dbContext.Set<T>().Remove(entity);
             }
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<string>> GetAllIds()
+        {
+            List<T> list = await GetAllAsync();
+            List<string> ids = list.Select(GetIdValue).ToList();
+            return ids;
+        }
+        private string GetIdValue(T obj)
+        {
+            PropertyInfo idProperty = typeof(T).GetProperty("Id");
+            if (idProperty != null)
+            {
+                object idValue = idProperty.GetValue(obj);
+                return idValue?.ToString();
+            }
+            return null;
+        }
+
+        public async Task DeleteSomeId()
+        {
+            var firstObject = await GetAllAsync();
+
+            if (firstObject.Count > 0)
+            {
+                var objectId = GetIdValue(firstObject.First());
+                await DeleteAsync(objectId);
+            }
         }
     }
 }

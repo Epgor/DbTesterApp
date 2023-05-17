@@ -3,6 +3,7 @@ using DbTesterApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using System.Reflection;
 
 namespace DbTesterApp.Services.Redis;
 
@@ -123,5 +124,34 @@ public class GenericRedisService<T>
         var db = GetDatabase();
         var pong = await db.PingAsync();
         return $"Ping! - Pong at:{pong}";
+    }
+
+    public async Task<List<string>> GetAllIds()
+    {
+        List<T> list = await GetAllAsync();
+        List<string> ids = list.Select(GetIdValue).ToList();
+        return ids;
+    }
+
+    private string GetIdValue(T obj)
+    {
+        PropertyInfo idProperty = typeof(T).GetProperty("Id");
+        if (idProperty != null)
+        {
+            object idValue = idProperty.GetValue(obj);
+            return idValue?.ToString();
+        }
+        return null;
+    }
+
+    public async Task DeleteSomeId()
+    {
+        var firstObject = await GetAllAsync();
+
+        if (firstObject.Count > 0)
+        {
+            var objectId = GetIdValue(firstObject.First());
+            await DeleteAsync(objectId);
+        }
     }
 }

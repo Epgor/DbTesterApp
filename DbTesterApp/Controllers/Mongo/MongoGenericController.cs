@@ -26,6 +26,14 @@ public class MongoGenericController<T> : ControllerBase
         return Created(nameof(Get), newEntity);
     }
 
+    [HttpPost("full")]
+    public async Task<IActionResult> PostFull([FromBody] T entity)
+    {
+        await _genericService.CreateAsync(entity);
+
+        return Created(nameof(Get), entity);
+    }
+
     [HttpPost("many")]
     public async Task<ActionResult> Post([FromBody] IEnumerable<T> entities)
     {
@@ -70,7 +78,7 @@ public class MongoGenericController<T> : ControllerBase
     }
 
     [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, T updatedNumber)
+    public async Task<IActionResult> Update([FromRoute] string id, [FromBody] T updatedNumber)
     {
         var book = await _genericService.GetAsync(id);
 
@@ -106,5 +114,17 @@ public class MongoGenericController<T> : ControllerBase
         await _genericService.DeleteAllAsync();
 
         return NoContent();
+    }
+    [HttpGet("ids")]
+    public async Task<List<string>> GetAllIds()
+    {
+        List<string> ids = await _genericService.GetAllIds();
+        return ids;
+    }
+    [HttpGet("testdelete")]
+    public async Task<IActionResult> TestDelete()
+    {
+        await _genericService.DeleteSomeId();
+        return Ok();
     }
 }

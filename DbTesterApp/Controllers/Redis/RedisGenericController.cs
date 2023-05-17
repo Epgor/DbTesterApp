@@ -34,6 +34,30 @@ public class RedisGenericController<T> : ControllerBase
         return BadRequest("Uops! Something went wrong! Object creating failed!");
     }
 
+    [HttpPost("testobject")]
+    public async Task<IActionResult> PrepareTestObject([FromBody] T Object)
+    {
+        var result = await _genericService.AddAsync(Object, "testobject");//will return error if exist
+        if (result) return Created(nameof(Post), "testobject");
+        return BadRequest("Uops! Something went wrong! Object creating failed!");
+    }
+
+    [HttpPut("testobject")]
+    public async Task<IActionResult> UpdateTestObjec([FromBody] T updatedNumber)
+    {
+        await _genericService.UpdateAsync("testobject", updatedNumber);
+
+        return NoContent();
+    }
+
+    [HttpGet("testobject")]
+    public async Task<ActionResult<T>> GetTestObject()
+    {
+        var value = await _genericService.GetAsync("testobject");
+
+        return value;
+    }
+
     [HttpPost("many")]
     public async Task<ActionResult> Post([FromBody] IEnumerable<T> entities)
     {
@@ -66,6 +90,20 @@ public class RedisGenericController<T> : ControllerBase
     {
         var list = await _genericService.GetAllAsync();
         return list.Count;
+    }
+
+    [HttpGet("ids")]
+    public async Task<List<string>> GetAllIds()
+    {
+        List<string> ids = await _genericService.GetAllIds();
+        return ids;
+    }
+
+    [HttpGet("testdelete")]
+    public async Task<IActionResult> TestDelete()
+    {
+        await _genericService.DeleteSomeId();
+        return Ok();
     }
 
     [HttpGet("fast")]

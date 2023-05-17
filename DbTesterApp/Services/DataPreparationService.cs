@@ -94,8 +94,8 @@ public class DataPreparationService
 
         var organizations = await GenerateOrganization(organizationsQuantity);
         //var organisationsNoSql = mapper.Map<List<OrganizationNoSql>>(organisations);
-        //await fileService.SaveToFile(organizations, fileService.organizationsPath);
-
+        await fileService.SaveToFile(organizations, fileService.organizationsPath);
+        
         var dataSql = new DataHolderSql()
         {
             Books = books,
@@ -146,8 +146,8 @@ public class DataPreparationService
 
         var organizations = await GenerateOrganizationFast(organizationsQuantity);
         //var organisationsNoSql = mapper.Map<List<OrganizationNoSql>>(organisations);
-        //await fileService.SaveToFile(organizations, fileService.organizationsPath);
-
+        await fileService.SaveToFile(organizations, fileService.organizationsPath);
+        /*
         var dataSql = new DataHolderSql()
         {
             Books = bookFast,
@@ -168,6 +168,8 @@ public class DataPreparationService
         };
 
         return data;
+        */
+        return new DataHolder() { };
     }
     private async Task<List<Book>> GenerateBook(int quantity = 1)
     {

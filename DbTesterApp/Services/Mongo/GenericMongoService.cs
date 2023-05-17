@@ -3,6 +3,7 @@ using DbTesterApp.Models.Database;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Reflection;
 
 namespace DbTesterApp.Services.Mongo;
 public class GenericMongoService<T>
@@ -59,4 +60,34 @@ public class GenericMongoService<T>
 
     public async Task DeleteAllAsync() =>
         await _genericsCollection.DeleteManyAsync("{}");
+
+    public async Task<List<string>> GetAllIds()
+    {
+        List<T> list = await GetAsync();
+        List<string> ids = list.Select(GetIdValue).ToList();
+        return ids;
+    }
+
+    private string GetIdValue(T obj)
+    {
+        PropertyInfo idProperty = typeof(T).GetProperty("Id");
+        if (idProperty != null)
+        {
+            object idValue = idProperty.GetValue(obj);
+            return idValue?.ToString();
+        }
+        return null;
+    }
+
+    public async Task DeleteSomeId()
+    {
+        var firstObject = await GetAsync();
+
+        if (firstObject.Count > 0)
+        {
+            var objectId = GetIdValue(firstObject.First());
+            await DeleteAsync(objectId);
+        }
+    }
+
 }

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace DbTesterApp.Controllers.Mongo;
 
 [Route("api/mssql/[controller]")]
-public class SqlBookController : SqlGenericController<Book>
+public class MSsqlBookController : MssqlGenericController<Book>
 {
-    public SqlBookController(GenericSqlService<Book> genericService,
+    public MSsqlBookController(GenericSqlService<Book> genericService,
                                 HashIdentifierService hashIdentifierService)
         : base(genericService, hashIdentifierService) { }
 }

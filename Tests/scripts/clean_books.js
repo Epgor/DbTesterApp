@@ -7,7 +7,7 @@ const https_agent = new https.Agent(
 const base_url = "https://localhost:7085";
 const endpoints = ["mongo/MongoBook", 
                    "redis/RedisBook", 
-                   "mssql/SqlBook"]
+                   "mssql/MssqlBook"]
 
 endpoints.forEach(endpoint => 
         axios.delete(`${base_url}/api/${endpoint}`,
