@@ -43,7 +43,7 @@ public class GenerationController : ControllerBase
     [HttpGet("fast")]
     public async Task<ActionResult<DataHolderSql>> GenerateDataFast()
     {
-        var some = 3;
+        var some = 1;
         dataService.Configure(
             some,
             some,

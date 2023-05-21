@@ -65,12 +65,12 @@ namespace DbTesterApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OrganisationId")
+                    b.Property<string>("OrganizationId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrganisationId");
+                    b.HasIndex("OrganizationId");
 
                     b.ToTable("Libraries");
                 });
@@ -97,7 +97,7 @@ namespace DbTesterApp.Migrations
                     b.ToTable("Numbers");
                 });
 
-            modelBuilder.Entity("DbTesterApp.Models.Organisation", b =>
+            modelBuilder.Entity("DbTesterApp.Models.Organization", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -106,7 +106,7 @@ namespace DbTesterApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OrganisationName")
+                    b.Property<string>("OrganizationName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -164,7 +164,7 @@ namespace DbTesterApp.Migrations
                     b.Property<string>("LibraryId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("OrganisationId")
+                    b.Property<string>("OrganizationId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Salary")
@@ -179,7 +179,7 @@ namespace DbTesterApp.Migrations
 
                     b.HasIndex("LibraryId");
 
-                    b.HasIndex("OrganisationId");
+                    b.HasIndex("OrganizationId");
 
                     b.ToTable("Workers");
                 });
@@ -193,9 +193,9 @@ namespace DbTesterApp.Migrations
 
             modelBuilder.Entity("DbTesterApp.Models.Library", b =>
                 {
-                    b.HasOne("DbTesterApp.Models.Organisation", null)
+                    b.HasOne("DbTesterApp.Models.Organization", null)
                         .WithMany("Libraries")
-                        .HasForeignKey("OrganisationId");
+                        .HasForeignKey("OrganizationId");
                 });
 
             modelBuilder.Entity("DbTesterApp.Models.Number", b =>
@@ -218,9 +218,9 @@ namespace DbTesterApp.Migrations
                         .WithMany("Workers")
                         .HasForeignKey("LibraryId");
 
-                    b.HasOne("DbTesterApp.Models.Organisation", null)
+                    b.HasOne("DbTesterApp.Models.Organization", null)
                         .WithMany("Workers")
-                        .HasForeignKey("OrganisationId");
+                        .HasForeignKey("OrganizationId");
                 });
 
             modelBuilder.Entity("DbTesterApp.Models.Library", b =>
@@ -230,7 +230,7 @@ namespace DbTesterApp.Migrations
                     b.Navigation("Workers");
                 });
 
-            modelBuilder.Entity("DbTesterApp.Models.Organisation", b =>
+            modelBuilder.Entity("DbTesterApp.Models.Organization", b =>
                 {
                     b.Navigation("Libraries");
 

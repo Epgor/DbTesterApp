@@ -44,6 +44,23 @@ namespace DbTesterApp.Services.MSSQL
             }
             return false;
         }
+        public async Task<bool> UpdateAddressAsync(string id, string value)
+        {
+            var existingEntity = dbContext.Set<T>().Find(id);
+
+            if (existingEntity != null)
+            {
+                var propertyInfo = existingEntity.GetType().GetProperty("Address");
+                if (propertyInfo != null && propertyInfo.CanWrite)
+                {
+                    propertyInfo.SetValue(existingEntity, value);
+                    await dbContext.SaveChangesAsync();
+                    return true;
+                };
+            }
+            
+            return false;
+        }
         public async Task<bool> DeleteAsync(string id)
         {
             var entity = dbContext.Set<T>().Find(id);

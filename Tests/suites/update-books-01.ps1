@@ -16,5 +16,5 @@ Start-Sleep -Seconds $timeout;
 $env:K6_INFLUXDB_BUCKET="u-book-mssql-01"
 ./../k6 run -o $k6_output ./../scripts/update/mssql/update_mssql_book_single.js
 
-
+Start-Sleep -Seconds $timeout;
 

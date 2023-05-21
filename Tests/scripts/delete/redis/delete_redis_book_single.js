@@ -16,3 +16,11 @@ export default function () {
   var delete_url = `${BASE_URL}/api/redis/RedisBook`;
   http.del(delete_url, { headers: HEADERS });
 }
+
+export function handleSummary(data) {
+  console.log('Preparing the end-of-test summary...');
+
+  return {
+    'delete-book-redis-single.json': JSON.stringify(data)
+  };
+};

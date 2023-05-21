@@ -59,7 +59,7 @@ namespace DbTesterApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OrganisationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrganizationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -86,14 +86,14 @@ namespace DbTesterApp.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LibraryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrganisationId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    OrganizationId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Libraries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Libraries_Organizations_OrganisationId",
-                        column: x => x.OrganisationId,
+                        name: "FK_Libraries_Organizations_Id",
+                        column: x => x.OrganizationId,
                         principalTable: "Organizations",
                         principalColumn: "Id");
                 });
@@ -126,7 +126,7 @@ namespace DbTesterApp.Migrations
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LibraryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    OrganisationId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    OrganizationId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -137,8 +137,8 @@ namespace DbTesterApp.Migrations
                         principalTable: "Libraries",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Workers_Organizations_OrganisationId",
-                        column: x => x.OrganisationId,
+                        name: "FK_Workers_Organizations_Id",
+                        column: x => x.OrganizationId,
                         principalTable: "Organizations",
                         principalColumn: "Id");
                 });
@@ -168,9 +168,9 @@ namespace DbTesterApp.Migrations
                 column: "LibraryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Libraries_OrganisationId",
+                name: "IX_Libraries_OrganizationId",
                 table: "Libraries",
-                column: "OrganisationId");
+                column: "OrganizationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Numbers_PointId",
@@ -188,9 +188,9 @@ namespace DbTesterApp.Migrations
                 column: "LibraryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Workers_OrganisationId",
+                name: "IX_Workers_OrganizationId",
                 table: "Workers",
-                column: "OrganisationId");
+                column: "OrganizationId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Books_Libraries_LibraryId",

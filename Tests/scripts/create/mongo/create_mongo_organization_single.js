@@ -11,7 +11,16 @@ export let options = {
 };
 
 export default function () {
-    var final_url = `${BASE_URL}/api/mongo/MongoOrganization`;
-    http.create(final_url, JSON.stringify(BODY), { headers: HEADERS });
-}
-    
+    //var final_url = `${BASE_URL}/api/mongo/MongoOrganization`;
+    //http.post(final_url, JSON.stringify(BODY), { headers: HEADERS });
+    var delete_url=`${BASE_URL}/api/mongo/MongoOrganization/generate/6`;
+    http.get(delete_url, { headers: HEADERS });
+};
+
+export function handleSummary(data) {
+  console.log('Preparing the end-of-test summary...');
+
+  return {
+    'create-org-mongo-single.json': JSON.stringify(data)
+  };
+};

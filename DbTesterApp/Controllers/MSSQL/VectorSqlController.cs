@@ -4,7 +4,7 @@ using DbTesterApp.Services;
 using DbTesterApp.Services.MSSQL;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DbTesterApp.Controllers.Mongo;
+namespace DbTesterApp.Controllers.MSSQL;
 
 [Route("api/mssql/[controller]")]
 public class MSsqlVectorController : MssqlGenericController<Vector>

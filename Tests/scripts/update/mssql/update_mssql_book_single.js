@@ -13,15 +13,23 @@ export let options = {
 
 export function setup() {
   var setup_url = `${BASE_URL}/api/mssql/MssqlBook/full`;
-  http.post(setup_url, JSON.stringify(BODY_TEST), { headers: HEADERS });
-}
+  //http.post(setup_url, JSON.stringify(BODY_TEST), { headers: HEADERS });
+};
 
 export default function () {
-  var final_url = `${BASE_URL}/api/mssql/MssqlBook/${BODY_TEST.id}`;
-  http.put(final_url, JSON.stringify(BODY_TEST), { headers: HEADERS });
-}
+  var final_url = `${BASE_URL}/api/mssql/MssqlOrganization/generate/6`;
+  http.get(final_url, { headers: HEADERS });
+};
 
 export function teardown() {
   var teardown_url = `${BASE_URL}/api/mssql/MssqlBook/${BODY_TEST.id}`;
-  http.del(teardown_url, { headers: HEADERS });
-}
+  //http.del(teardown_url, { headers: HEADERS });
+};
+
+export function handleSummary(data) {
+  console.log('Preparing the end-of-test summary...');
+
+  return {
+    'update-book-mssql-single.json': JSON.stringify(data)
+  };
+};

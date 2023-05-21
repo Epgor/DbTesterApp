@@ -13,6 +13,15 @@ export let options = {
 export default function () {
   //var delete_url = `${BASE_URL}/api/mongo/MongoBook/testdelete`;
   //http.get(delete_url, { headers: HEADERS });
-  var delete_url = `${BASE_URL}/api/mongo/MongoBook`;
-  http.del(delete_url, { headers: HEADERS });
+  var delete_url = `${BASE_URL}/api/mongo/MongoBook/testdelete`;
+  http.post(delete_url, { headers: HEADERS });
 }
+
+export function handleSummary(data) {
+  console.log('Preparing the end-of-test summary...');
+
+  return {
+    'delete-book-mongo-single.json': JSON.stringify(data)
+  };
+};
+    

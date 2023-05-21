@@ -13,5 +13,5 @@ export let options = {
 export default function () {
     var final_url = `${BASE_URL}/api/mssql/MssqlBook/many`;
     http.delete(final_url, JSON.stringify(BODY), { headers: HEADERS });
-}
+};
     

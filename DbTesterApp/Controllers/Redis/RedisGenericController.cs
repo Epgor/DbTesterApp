@@ -180,6 +180,16 @@ public class RedisGenericController<T> : ControllerBase
     public async Task<ActionResult> Ping()
     {
         var result = await _genericService.HealthCheck();
+     
         return Ok(result);
+    }
+    [HttpGet("generate/{num}")]
+    public async Task<IActionResult> GenerateVolume([FromRoute] int num =1)
+    {
+        for (int i = 0; i < num; i++)
+        {
+            await _hashIdentifierService.GetHashId();
+        }
+        return Ok();
     }
 }

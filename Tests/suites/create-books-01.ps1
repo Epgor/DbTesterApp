@@ -10,7 +10,7 @@ $env:K6_INFLUXDB_BUCKET="c-book-redis-01"
 Start-Sleep -Seconds $timeout;
 
 #MongoDB
-$env:K6_INFLUXDB_BUCKET="c-book-mongodb-02"
+$env:K6_INFLUXDB_BUCKET="c-book-mongo-01"
 ./../k6 run -o $k6_output ./../scripts/create/mongo/create_mongo_book_single.js
 
 Start-Sleep -Seconds $timeout;
@@ -18,3 +18,5 @@ Start-Sleep -Seconds $timeout;
 #MSSQL
 $env:K6_INFLUXDB_BUCKET="c-book-mssql-01"
 ./../k6 run -o $k6_output ./../scripts/create/mssql/create_mssql_book_single.js
+
+Start-Sleep -Seconds $timeout;

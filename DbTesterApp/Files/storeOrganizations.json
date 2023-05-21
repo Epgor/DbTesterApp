@@ -1,0 +1,64 @@
+[
+  {
+    "Id": "100000000000000000000009",
+    "OrganizationName": "Pacocha - Marvin",
+    "Libraries": [
+      {
+        "Id": "100000000000000000000007",
+        "LibraryName": "Orn, Mitchell and Abernathy",
+        "Workers": [
+          {
+            "Id": "100000000000000000000006",
+            "WorkerName": "Bryant Runolfsdottir",
+            "Salary": "5986,55",
+            "Category": "Stage And Screen",
+            "Address": "82315 Pollich Inlet, East Casperchester, Norway"
+          }
+        ],
+        "Books": [
+          {
+            "Id": "100000000000000000000005",
+            "BookName": "North Korean Won Soft",
+            "Price": "$310,37",
+            "Category": "Non Music",
+            "Author": "Moses Jaskolski"
+          }
+        ],
+        "Address": "08583 Cordelia Drives, Elinorton, Georgia"
+      },
+      {
+        "Id": "100000000000000000000008",
+        "LibraryName": "White - Fisher",
+        "Workers": [
+          {
+            "Id": "100000000000000000000006",
+            "WorkerName": "Bryant Runolfsdottir",
+            "Salary": "5986,55",
+            "Category": "Stage And Screen",
+            "Address": "82315 Pollich Inlet, East Casperchester, Norway"
+          }
+        ],
+        "Books": [
+          {
+            "Id": "100000000000000000000005",
+            "BookName": "North Korean Won Soft",
+            "Price": "$310,37",
+            "Category": "Non Music",
+            "Author": "Moses Jaskolski"
+          }
+        ],
+        "Address": "6147 Rosie Rapid, Gleasonshire, Panama"
+      }
+    ],
+    "Workers": [
+      {
+        "Id": "100000000000000000000006",
+        "WorkerName": "Bryant Runolfsdottir",
+        "Salary": "5986,55",
+        "Category": "Stage And Screen",
+        "Address": "82315 Pollich Inlet, East Casperchester, Norway"
+      }
+    ],
+    "Address": "963 Abernathy Court, Adalbertoburgh, Austria"
+  }
+]

@@ -17,3 +17,4 @@ Start-Sleep -Seconds $timeout;
 $env:K6_INFLUXDB_BUCKET="d-book-mssql-01"
 ./../k6 run -o $k6_output ./../scripts/delete/mssql/delete_mssql_book_single.js
 
+Start-Sleep -Seconds $timeout;

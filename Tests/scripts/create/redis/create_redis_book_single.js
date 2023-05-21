@@ -13,5 +13,12 @@ export let options = {
 export default function () {
     var final_url = `${BASE_URL}/api/redis/RedisBook`;
     http.post(final_url, JSON.stringify(BODY), { headers: HEADERS });
-}
-    
+};
+
+export function handleSummary(data) {
+  console.log('Preparing the end-of-test summary...');
+
+  return {
+    'create-book-redis-single.json': JSON.stringify(data)
+  };
+};

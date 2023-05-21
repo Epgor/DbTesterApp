@@ -13,6 +13,14 @@ export let options = {
 export default function () {
   //var delete_url = `${BASE_URL}/api/mssql/MssqlBook/testdelete`;
   //http.get(delete_url, { headers: HEADERS });
-  var delete_url = `${BASE_URL}/api/mssql/MssqlBook`;
-  http.del(delete_url, { headers: HEADERS });
-}
+  var delete_url = `${BASE_URL}/api/mssql/MssqlBook/testdelete`;
+  http.post(delete_url, { headers: HEADERS });
+};
+
+export function handleSummary(data) {
+  console.log('Preparing the end-of-test summary...');
+
+  return {
+    'delete-book-mssql-single.json': JSON.stringify(data)
+  };
+};

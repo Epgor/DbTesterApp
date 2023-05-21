@@ -14,9 +14,17 @@ export let options = {
 export function setup() {
   var setup_url = `${BASE_URL}/api/redis/RedisBook/testobject`;
   http.post(setup_url, JSON.stringify(BODY_TEST), { headers: HEADERS });
-}
+};
 
 export default function () {
   var final_url = `${BASE_URL}/api/redis/RedisBook/testobject`;
   http.put(final_url, JSON.stringify(BODY_TEST), { headers: HEADERS });
-}
+};
+
+export function handleSummary(data) {
+  console.log('Preparing the end-of-test summary...');
+
+  return {
+    'update-book-redis-single.json': JSON.stringify(data)
+  };
+};

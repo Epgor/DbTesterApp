@@ -101,7 +101,7 @@ public class DataPreparationService
             Books = books,
             Workers = workers,
             Libraries = libraries,
-            Organisations = organizations,
+            Organizations = organizations,
             Numbers = numbers,
             Points = points,
             Vectors = vectors,
@@ -120,6 +120,7 @@ public class DataPreparationService
 
     public async Task<DataHolder> PrepareDataFast()
     {
+        
         numberFast = await GenerateNumber(numbersPerPointQuantity);
         //var numberNoSql = mapper.Map<List<NumberNoSql>>(numberFast);
         await fileService.SaveToFile(numberFast, fileService.numbersPath);
@@ -143,7 +144,7 @@ public class DataPreparationService
         libraryFast = await GenerateLibraryFast(librariesQuantity);
         //var librariesNoSql = mapper.Map<List<LibraryNoSql>>(libraryFast);
         await fileService.SaveToFile(libraryFast, fileService.librariesPath);
-
+        
         var organizations = await GenerateOrganizationFast(organizationsQuantity);
         //var organisationsNoSql = mapper.Map<List<OrganizationNoSql>>(organisations);
         await fileService.SaveToFile(organizations, fileService.organizationsPath);

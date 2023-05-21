@@ -114,4 +114,14 @@ public class MssqlGenericController<T> : ControllerBase where T : class
         await _genericService.DeleteSomeId();
         return Ok();
     }
+
+    [HttpGet("generate/{num}")]
+    public async Task<IActionResult> GenerateVolume([FromRoute]int num=1)
+    {
+        for(int i =0; i<num; i++)
+        {
+            await _hashIdentifierService.GetHashId();
+        }
+        return Ok();
+    }
 }

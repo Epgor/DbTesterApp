@@ -12,7 +12,14 @@ export let options = {
 };
 
 export default function () {
-    var final_url = `${BASE_URL}/api/redis/RedisBook/many`;
+    var final_url = `${BASE_URL}/api/redis/RedisBook/many/fast`;
     http.post(final_url, JSON.stringify(BODY_JSON), { headers: HEADERS });
-}
-    
+};
+
+export function handleSummary(data) {
+  console.log('Preparing the end-of-test summary...');
+
+  return {
+    'create-book-redis-many.json': JSON.stringify(data)
+  };
+};
