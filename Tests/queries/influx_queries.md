@@ -17,7 +17,7 @@ from(bucket: "c-book-mssql-01")
   |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
   |> yield(name: "mean")
 
-from(bucket: "c-book-mongodb-02")
+from(bucket: "c-book-mongodb-01")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r["_measurement"] == "http_req_duration")
   |> filter(fn: (r) => r["_field"] == "value")

@@ -6,13 +6,13 @@ public class JsonFileService
 {
     public JsonFileService() { }
 
-    public readonly string booksPath = "C:\\Users\\user\\source\\repos\\Epgor\\DbTesterApp\\DbTesterApp\\Files\\storeBooks.json";
-    public readonly string workersPath = "C:\\Users\\user\\source\\repos\\Epgor\\DbTesterApp\\DbTesterApp\\Files\\storeWorkers.json";
-    public readonly string librariesPath = "C:\\Users\\user\\source\\repos\\Epgor\\DbTesterApp\\DbTesterApp\\Files\\storeLibraries.json";
-    public readonly string organizationsPath = "C:\\Users\\user\\source\\repos\\Epgor\\DbTesterApp\\DbTesterApp\\Files\\storeOrganizations.json";
-    public readonly string numbersPath = "C:\\Users\\user\\source\\repos\\Epgor\\DbTesterApp\\DbTesterApp\\Files\\storeNumbers.json";
-    public readonly string pointsPath = "C:\\Users\\user\\source\\repos\\Epgor\\DbTesterApp\\DbTesterApp\\Files\\storePoints.json";
-    public readonly string vectorsPath = "C:\\Users\\user\\source\\repos\\Epgor\\DbTesterApp\\DbTesterApp\\Files\\storeVectors.json";
+    public readonly string booksPath = "C:\\Users\\user\\source\\repos\\DbTesterApp\\DbTesterApp\\Files\\storeBooks.json";
+    public readonly string workersPath = "C:\\Users\\user\\source\\repos\\DbTesterApp\\DbTesterApp\\Files\\storeWorkers.json";
+    public readonly string librariesPath = "C:\\Users\\user\\source\\repos\\DbTesterApp\\DbTesterApp\\Files\\storeLibraries.json";
+    public readonly string organizationsPath = "C:\\Users\\user\\source\\DbTesterApp\\DbTesterApp\\Files\\storeOrganizations.json";
+    public readonly string numbersPath = "C:\\Users\\user\\source\\repos\\DbTesterApp\\DbTesterApp\\Files\\storeNumbers.json";
+    public readonly string pointsPath = "C:\\Users\\user\\source\\repos\\DbTesterApp\\DbTesterApp\\Files\\storePoints.json";
+    public readonly string vectorsPath = "C:\\Users\\user\\source\\repos\\DbTesterApp\\DbTesterApp\\Files\\storeVectors.json";
     public async Task<int> SaveToFile<T>(T items, string path)
     {
         try
